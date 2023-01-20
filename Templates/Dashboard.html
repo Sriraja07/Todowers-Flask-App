@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-indigo-900" >
+  <main class="flex flex-row">
+    <div class="flex flex-col m-6 w-64">
+      <h2 class="text-4xl text-white font-bold"><a href="#">TODOWERS</a></h2>
+      <nav class="flex flex-col text-white text-sm">
+        <a href="{{ url_for('home') }}" class="text-xl flex p-3 mt-20 font-bold"><img class="w-8 h-8" src="static/image/Icon material-home.png"><p class="pl-5">Home</p></a>
+        <a href="{{ url_for('dashboard') }}" class="text-xl flex p-3 mt-5 font-bold bg-blue-400 rounded-xl shadow-xl"><img class=" pt-1 w-7 h-7" src="static/image/Icon material-dashboard.png"><p class="pl-5">Dashboard</p></a>
+        <a href="{{ url_for('task') }}" class="text-xl flex p-3 mt-5 font-bold"><img class="w-7 h-7 pt-1" src="static/image/Icon open-task.png"><p class="pl-5">Task</p></a>
+        <a href="{{ url_for('login') }}" class="text-xl flex p-3 mt-5 font-bold"><img class="w-6 h-6 pt-1" src="static/image/Icon open-account-logout.png"><p class="pl-5">Logout</p></a>
+      </nav>
+    </div>
+    <div class="flex flex-row bg-gray-100 m-6 rounded-xl p-6">
+      <div class="flex flex-col">
+        <div class="flex flex-row">
+          <div class="bg-white p-6 m-2 mx-14 rounded-3xl">
+            <h1 class=" text-xl font-bold">Completed</h1>
+            <div class="border-8 border-blue-700 rounded-full m-3 p-14">
+              <p class="text-4xl font-medium">{{cal[1]}}</p></div>
+          </div>
+          <div class="bg-white p-6 m-2 mx-14 rounded-3xl">
+            <h1 class=" text-xl font-bold">Progress</h1>
+            <div class="border-8 border-blue-700 rounded-full m-3 p-14">
+              <p class="text-4xl font-medium">{{cal[0]-cal[1]}}</p></div>
+          </div>
+        </div>
+        <div class=" bg-white p-6 m-2 rounded-3xl">
+          <h1 class=" text-xl font-medium">Daily Task</h1>
+            {%for i in list%}
+            <div class="flex flex-row px-6 pt-6 justify-between">
+              <p class=" text-md w-1/4"> {{i[2]}}</p>
+              <h2 class=" text-md pl-9 text-gray-400 text-md w-48">{{i[3]}}</h2>
+              <h3 class="px-12 text-gray-400 text-sm w-64">{{i[4]}}</h3>
+              <form method="POST" action="{{url_for('finishtodo')}}">
+                <input type="hidden" name="keys" value="{{i[1]}}">
+                <input type="hidden" name="page" value="home.html">
+              <input type="submit" class=" bg-sky-700 p-2 text-white rounded-xl" value="Complete"></form>
+            </div>
+            {%endfor%}
+        </div>
+      </div>
+      <div class= " bg-white p-5 m-2 rounded-3xl w-96">
+        <h1 class="text-xl font-bold">Task</h1>
+        {%for i in list%}
+        <div class="flex flex-row px-6 pt-6">
+          <h2 class=" text-md w-24">{{i[2]}}</h2>
+          <h3 class="px-12 text-gray-400 text-sm">{{i[4]}}</h3>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+    
+  </main>
+  
+</body>
+</html>
